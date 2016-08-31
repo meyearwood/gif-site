@@ -11,6 +11,7 @@ input {
 
 .container-header {
 	background-color: rgba(40, 40, 40, .9);
+	background: linear-gradient(to right, rgba(40, 40, 40, .5), rgba(80, 80, 80, .5));
 }
 
 .container-header h2 {
@@ -65,7 +66,7 @@ input {
 	padding: calc((4em - 40px)/2) 0 0 2.25em;
 }
 .circle1 {
-	background-color: rgba(249, 26, 4, 1);
+	background-color: rgba(40, 40, 40, 1);
 	height: 4em;
 	width: 4em;
 	display: inline-block;
@@ -83,21 +84,39 @@ input {
 	margin: 0 1em 0 0;
 }
 .btn-search {
-	background-color: rgba(249, 26, 4, 1);
-	color: rgba(40, 40, 40, .8);
+	background-color: rgba(40, 40, 40, 1);
+	color: rgba(255, 255, 255, 1);
 	border: none;
 	display: inline-block;
 	height: 38px;
 }
 .row-btn {
-	padding-top: 1em;
+	padding: 1em 0;
 }
 .col-btn {
-
+	text-align: center;
 }
 .btn-gif {
 	background-color: rgba(40, 40, 40, .8);
 	color: rgba(255, 255, 255, 1);
+}
+.col-gif {
+	text-align: center;
+	box-sizing: border-box;
+	padding: .5em;
+	margin: .125em;
+	width: calc(25% - .25em);
+	min-height: calc(255px + 1.5em);
+	background-color: rgba(80, 80, 80, .4);
+	background: linear-gradient(-45deg, rgba(40, 40, 40, .3), rgba(80, 80, 80, .3));
+	color: rgba(40, 40, 40, 1);
+
+}
+
+.gif-thumb {
+	width: 100%;
+	height: auto;
+	margin: 0 0 .25em 0;
 }
 /* font-family: 'Baloo Chettan', cursive; /* headings */
 /* font-family: 'Jaldi', sans-serif; /* main text */
