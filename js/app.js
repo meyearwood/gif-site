@@ -1,10 +1,20 @@
+var subject;
+var limit = '&limit=12';
+var apiKey = '&api_key=dc6zaTOxFJmzC';
+var queryUrl;
 
+function ajaxQuery(event) {
+	subject = $(this).attr('data-subject');
+	queryUrl = ('https://api.giphy.com/v1/gifs/search?q=' + subject + limit + apiKey);
+	console.log(queryUrl);
+	$.ajax({url: queryUrl, method: 'GET'})
+	.done(function(response) {
+		console.log(response);
+	});
+	$('.btn-gif').off();
+}
 
-
-$(document).ready(function() {
-
-
-});
+	$('.btn-gif').click(ajaxQuery);
 
 // page loads with header and start button
 // on click start button, load first question, start timer set interval

@@ -1,26 +1,107 @@
 body {
-	background-color: rgba(255, 255, 255, 0); /* white */
-	color: rgba(40, 40, 40, 0); /* black */
+	background-color: rgba(255, 255, 255, 1); /* white */
+	color: rgba(40, 40, 40, 1); /* black */
 	font-family: 'Jaldi', sans-serif; /* main text */
 	font-size: 30px;
 }
+input {
+	font-size: 20px;
+	padding: .25em .5em;
+}
 
 .container-header {
-	background: rgba(34, 76, 232, .5); /* For browsers that do not support gradients */
-  	background: -webkit-linear-gradient(-90deg, rgba(34, 76, 232, .5), rgba(64, 187, 111, .5)); /* for old Safari */
- 	background: -o-linear-gradient(-90deg, rgba(34, 76, 232, .5), rgba(64, 187, 111, .5)); /* for old Opera */
-  	background: -moz-linear-gradient(-90deg, rgba(34, 76, 232, .5), rgba(64, 187, 111, .5)); /* for old Firefox */
-  	background: linear-gradient(-90deg, rgba(34, 76, 232, .5), rgba(64, 187, 111, .5));
+	background-color: rgba(40, 40, 40, .9);
 }
 
 .container-header h2 {
 	font-family: 'Baloo Chettan', cursive; /* headings */
-	font-size: 50px;
-}
+	font-size: 40px;
+	line-height: 1;
+	margin: 0;
 
+
+}
+.row-header {
+	display: block;
+}
+.col-header-title {
+	padding: 1em 1em 1em 4em;
+}
+.col-header-search {
+	padding: calc((6em - 38px)/2) 3em 1em 2.5em;
+}
+.circle2 {
+ 	background-color: rgba(255, 255, 255, 1);
+ 	height: 4em;
+ 	width: 4em;
+ 	display: inline-block;
+ 	color: rgba(40, 40, 40, 1);
+ 	z-index: 5;
+ 	position: relative;
+	left: -4.2em;
+
+}
+.circle1, .circle2 {
+ 	border-radius: 50%;
+	vertical-align: middle;
+
+}
+.circle1 h2 {
+	padding: 0;
+}
+.circle2 h2 {
+	padding: 0;
+}
+.rectangle {
+	width: 4.5em;
+	height: 4em;
+	position: relative;
+	left: -2.1em;
+	top: .2em;
+	z-index: 10;
+	display: inline-block;
+	background-color: rgba(255, 255, 255, 1);
+	text-align: left;
+	padding: calc((4em - 40px)/2) 0 0 2.25em;
+}
+.circle1 {
+	background-color: rgba(249, 26, 4, 1);
+	height: 4em;
+	width: 4em;
+	display: inline-block;
+	color: rgba(255, 255, 255, 1);
+	z-index: 15;
+	text-align: center;
+	padding-top: calc((4em - 40px)/2);
+	position: relative;
+}
+#search {
+	color: rgba(40, 40, 40, .8);
+	border: none;
+	border-radius: 5px;
+	display: inline-block;
+	margin: 0 1em 0 0;
+}
+.btn-search {
+	background-color: rgba(249, 26, 4, 1);
+	color: rgba(40, 40, 40, .8);
+	border: none;
+	display: inline-block;
+	height: 38px;
+}
+.row-btn {
+	padding-top: 1em;
+}
+.col-btn {
+
+}
+.btn-gif {
+	background-color: rgba(40, 40, 40, .8);
+	color: rgba(255, 255, 255, 1);
+}
 /* font-family: 'Baloo Chettan', cursive; /* headings */
 /* font-family: 'Jaldi', sans-serif; /* main text */
 
-/* color: rgba(249, 26, 4, 0); /* red */
-/* color: rgba(255, 255, 255, 0); /* white */
-/* color: rgba(40, 40, 40, 0); /* black */
+/* color: rgba(249, 26, 4, 1); /* red */
+/* color: rgba(255, 255, 255, 1); /* white */
+/* color: rgba(40, 40, 40, 1); /* black */
