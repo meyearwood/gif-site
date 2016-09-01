@@ -106,7 +106,6 @@ input {
 	padding: .5em;
 	margin: .125em;
 	width: calc(25% - .25em);
-	min-height: calc(255px + 1.5em);
 	background-color: rgba(80, 80, 80, .4);
 	background: linear-gradient(-45deg, rgba(40, 40, 40, .3), rgba(80, 80, 80, .3));
 	color: rgba(40, 40, 40, 1);
@@ -117,6 +116,9 @@ input {
 	width: 100%;
 	height: auto;
 	margin: 0 0 .25em 0;
+}
+.row-gif {
+	margin-bottom: 2em;
 }
 /* font-family: 'Baloo Chettan', cursive; /* headings */
 /* font-family: 'Jaldi', sans-serif; /* main text */
