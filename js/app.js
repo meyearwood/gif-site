@@ -49,8 +49,12 @@ function ajaxQuery(event) {
 
 		for(i = 0; i < response.data.length; i++) {
 
-			console.log(response.data[i].images.original.url);
-			respCol = $('<div class="col col-xs-3 col-gif col-' + [i] + '"><img class="gif-thumb img-' + [i] + '" alt="" src="' + response.data[i].images.original.url + '" /><br /></div>');
+			console.log('animate url = ' + response.data[i].images.original.url);
+			console.log('still url = ' + response.data[i].images.original_still.url);
+			respCol = $('<div class="col col-xs-3 col-gif"><img class="gif-thumb" alt="" src="' + response.data[i].images.original_still.url + '" data-state="still" /><br /></div>');
+			$('.gif-thumb').attr('data-animate', response.data[i].images.original.url);
+			$('.gif-thumb').attr('data-still', response.data[i].images.original_still.url);
+			console.log('col = ' + respCol);
 			// displaySubject = 
 			imgHeightArr.push(response.data[i].images.original.height/response.data[i].images.original.width);
 			$('.gif-thumb').on('load', imgHeight);
