@@ -11,6 +11,7 @@ var showButtons;
 var gifThumbHeight;
 var gifThumbHeightNum;
 var imgHeightArr = [];
+var state;
 
 var shows = [
 	'Murder She Wrote',
@@ -21,7 +22,7 @@ var shows = [
 	'Bones',
 	'Quantum Leap',
 	'CSI',
-	'Hercules',
+	'Mad Men',
 	'Breaking Bad',
 	'The Wire',
 	'Xena Warrior Princess'
@@ -51,7 +52,7 @@ function ajaxQuery(event) {
 
 			console.log('animate url = ' + response.data[i].images.original.url);
 			console.log('still url = ' + response.data[i].images.original_still.url);
-			respCol = $('<div class="col col-xs-3 col-gif"><img class="gif-thumb" alt="" src="' + response.data[i].images.original_still.url + '" data-state="still" /><br /></div>');
+			respCol = $('<div class="col col-xs-3 col-gif"><img class="gif-thumb" id="img-' + i + '" alt="" src="' + response.data[i].images.original_still.url + '" data-state="still" /><br /></div>');
 			$('.gif-thumb').attr('data-animate', response.data[i].images.original.url);
 			$('.gif-thumb').attr('data-still', response.data[i].images.original_still.url);
 			console.log('col = ' + respCol);
@@ -65,31 +66,39 @@ function ajaxQuery(event) {
 				respCol.append('<span>rating: ' + hasRating + '</span>');
 			}
 			$('.row-gif').append(respCol);
-		}
-		// respCol.append('' + subject + '');
-			
+			$('.col-gif').on('click', '.gif-thumb', function() {
+				console.log($(this) + 'data-animate ');
+				state = $(this).attr('data-state'); 
+				if (state == 'still'){
+                	$(this).attr('src', $(this).data('animate'));
+                	$(this).attr('data-state', 'animate');
+            	} else {
+                	$(this).attr('src', $(this).data('still'));
+                	$(this).attr('data-state', 'still');
+            	} // end if-else
+    		}); // end img on click
+		} // end for loop
 
+	}); // end .done function response
 
-
-
-
-	});
-}
+} // end ajaxQuery
 function imgHeight() {
 		imgHeightArr.sort(function(a, b) {
 			return b - a;
 		});
-		newImgHeight = imgHeightArr[0] * 255
+		imgWidth = $('.gif-thumb').width();
+		newImgHeight = imgHeightArr[0] * imgWidth;
 		$('.col-gif').css({'height': 'calc(' + newImgHeight + 'px + 30px + 1.5em)'});
-}
+} // end imgHeight
 
 $(document).ready(function() {
 
 	displayButtons();
 
 	$('.btn-gif').click(ajaxQuery);
+	$(window).on('resize', imgHeight);
 
-});
+}); // end document ready
 
 // page loads with header and start button
 // on click start button, load first question, start timer set interval
