@@ -14,6 +14,8 @@ var imgHeightArr = [];
 var state;
 var gifClass;
 var newBtn;
+var searchVal;
+jQuery.fn.exists = function(){ return this.length > 0; }
 
 var shows = [
 	'Murder She Wrote',
@@ -32,7 +34,7 @@ var shows = [
 
 function displayButtons() {
 	for(j = 0; j < shows.length; j++) {
-		showButtons = $('<div class="col col-xs-2 col-btn"><button class="btn btn-default btn-gif" data-subject="' + shows[j] + '">' + shows[j] + '</button></div>');
+		showButtons = $('<div class="col col-xs-2 col-btn"><button class="btn btn-default btn-gif" data-subject="' + shows[j] + '"><span>' + shows[j] + '</span></button></div>');
 		$('.row-btn').append(showButtons);
 	}
 
@@ -81,17 +83,34 @@ function ajaxQuery() {
 
 } // end ajaxQuery
 function newButton(event) {
-	console.log($('#search').val());
-	newBtn = $('<div class="col col-xs-2 col-btn"><button class="btn btn-default btn-gif" data-subject="' + $('#search').val() + '">' + $('#search').val() + '</button></div>');
-	$('.row-btn').append(newBtn);
-	ajaxQuery();
+	searchVal = $('#search').val().trim();
+	console.log(searchVal);
+	$('#search').blur();
+	// $('#search').attr('value', $('#search').val());
+		newBtn = $('<div class="col col-xs-2 col-btn"><button class="btn btn-default btn-gif" data-subject="' + searchVal + '"><span>' + searchVal + '</span></button></div>');
+		$('.row-btn').append(newBtn);
+		ajaxQuery();
 	$('#search').val('Search');
-
+	console.log(searchVal);
+	//console.log($('#search').attr('value'));
+	searchFocus();
+	$('.btn-gif').click(ajaxQuery);
 
 } // end newButton
-function searchFocus(event){
-	$('#search').focus(function(event) {
-		$(event.target).attr('value', '');
+function searchFocus(){
+	$('#search').focus(function() {
+		if((($('#search').attr('value')) || ($('#search').val()))  == 'Search') {
+			$('#search').attr('value', '');
+			$('#search').val('');
+			console.log('onfocus ' + $('#search').attr('value'), $('#search').val());
+		}
+	});
+	$('#search').blur(function() {
+		if((($('#search').attr('value')) || ($('#search').val()))  == '') {
+			$('#search').attr('value', 'Search');
+			$('#search').val('Search');
+			console.log('onblur ' + $('#search').attr('value'), $('#search').val());
+		}
 	});
 } //end search focus
 function gifClick(event) {
@@ -122,8 +141,15 @@ function imgHeight() {
 $(document).ready(function() {
 	searchFocus();
 	displayButtons();
-	$('.btn-gif').click(ajaxQuery);
 	$('.btn-search').click(newButton);
+	$('.btn-gif').click(ajaxQuery);
+
+	$(document).keypress(function(e) {
+		if(e.which === 13) {
+			newButton();
+		}
+	});
+
 	$(window).on('resize', imgHeight);
 
 
