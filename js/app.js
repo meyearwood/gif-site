@@ -12,6 +12,8 @@ var gifThumbHeight;
 var gifThumbHeightNum;
 var imgHeightArr = [];
 var state;
+var gifClass;
+var newBtn;
 
 var shows = [
 	'Murder She Wrote',
@@ -36,9 +38,13 @@ function displayButtons() {
 
 }
 
-function ajaxQuery(event) {
+function ajaxQuery() {
 	$('.row-gif').empty();
-	subject = $(this).attr('data-subject');
+	if($('#search').val() == 'Search') {
+		subject = $(this).attr('data-subject');
+	} else {
+		subject = $('#search').val();
+	}
 	queryUrl = ('https://api.giphy.com/v1/gifs/search?q=' + subject + limit + apiKey);
 	console.log(queryUrl);
 
@@ -50,14 +56,16 @@ function ajaxQuery(event) {
 
 		for(i = 0; i < response.data.length; i++) {
 
-			console.log('animate url = ' + response.data[i].images.original.url);
-			console.log('still url = ' + response.data[i].images.original_still.url);
-			respCol = $('<div class="col col-xs-3 col-gif"><img class="gif-thumb" id="img-' + i + '" alt="" src="' + response.data[i].images.original_still.url + '" data-state="still" /><br /></div>');
-			$('.gif-thumb').attr('data-animate', response.data[i].images.original.url);
-			$('.gif-thumb').attr('data-still', response.data[i].images.original_still.url);
-			console.log('col = ' + respCol);
-			// displaySubject = 
 			imgHeightArr.push(response.data[i].images.original.height/response.data[i].images.original.width);
+
+			respCol = $('<div class="col col-xs-3 col-gif"><img class="gif-thumb" alt="" src="' + 
+				response.data[i].images.original_still.url 
+				+ '" data-state="still" data-animate="' + 
+				response.data[i].images.original.url 
+				+ '" data-still="' + 
+				response.data[i].images.original_still.url 
+				+ '" /><br /></div>');
+
 			$('.gif-thumb').on('load', imgHeight);
 			hasRating = response.data[i].rating.toUpperCase();
 			if(response.data[i].rating === '') {
@@ -66,37 +74,58 @@ function ajaxQuery(event) {
 				respCol.append('<span>rating: ' + hasRating + '</span>');
 			}
 			$('.row-gif').append(respCol);
-			$('.col-gif').on('click', '.gif-thumb', function() {
-				console.log($(this) + 'data-animate ');
-				state = $(this).attr('data-state'); 
-				if (state == 'still'){
-                	$(this).attr('src', $(this).data('animate'));
-                	$(this).attr('data-state', 'animate');
-            	} else {
-                	$(this).attr('src', $(this).data('still'));
-                	$(this).attr('data-state', 'still');
-            	} // end if-else
-    		}); // end img on click
-		} // end for loop
+    	} // end for loop
+			$('.gif-thumb').on('click', gifClick); // end img on click
 
 	}); // end .done function response
 
 } // end ajaxQuery
+function newButton(event) {
+	console.log($('#search').val());
+	newBtn = $('<div class="col col-xs-2 col-btn"><button class="btn btn-default btn-gif" data-subject="' + $('#search').val() + '">' + $('#search').val() + '</button></div>');
+	$('.row-btn').append(newBtn);
+	ajaxQuery();
+	$('#search').val('Search');
+
+
+} // end newButton
+function searchFocus(event){
+	$('#search').focus(function(event) {
+		$(event.target).attr('value', '');
+	});
+} //end search focus
+function gifClick(event) {
+	console.log(event);
+	console.log('this data animate ' + $(event.target).data('animate'));
+	console.log($(event.target).attr('class'));
+	state = $(event.target).attr('data-state'); 
+	if (state == 'still'){
+        $(event.target).attr('src', $(event.target).data('animate'));
+        $(event.target).attr('data-state', 'animate');
+    } else {
+        $(event.target).attr('src', $(event.target).data('still'));
+        $(event.target).attr('data-state', 'still');
+    } // end if-else
+} // end gifClick
+
 function imgHeight() {
-		imgHeightArr.sort(function(a, b) {
-			return b - a;
-		});
-		imgWidth = $('.gif-thumb').width();
-		newImgHeight = imgHeightArr[0] * imgWidth;
-		$('.col-gif').css({'height': 'calc(' + newImgHeight + 'px + 30px + 1.5em)'});
+	imgHeightArr.sort(function(a, b) {
+		return b - a;
+	});
+	imgWidth = $('.gif-thumb').width();
+	newImgHeight = imgHeightArr[0] * imgWidth;
+	$('.col-gif').css({'height': 'calc(' + newImgHeight + 'px + 30px + 1.5em)'});
 } // end imgHeight
 
+
+
 $(document).ready(function() {
-
+	searchFocus();
 	displayButtons();
-
 	$('.btn-gif').click(ajaxQuery);
+	$('.btn-search').click(newButton);
 	$(window).on('resize', imgHeight);
+
 
 }); // end document ready
 
